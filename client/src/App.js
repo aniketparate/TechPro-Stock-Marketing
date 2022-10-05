@@ -1,11 +1,23 @@
-import './App.css';
+import React, { useEffect, useState } from 'react'
 
 function App() {
+  const [backendData, setBackendData] = useState([{}])
+
+  useEffect(() => {
+    fetch("/api").then(
+      response => response.json()
+    ).then(
+      data => {
+        setBackendData(data)
+      }
+    )
+  })
+
   return (
     <div>
-      <h1>HELLO</h1>
+      <h2>Chart</h2>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
