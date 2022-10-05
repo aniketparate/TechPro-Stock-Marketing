@@ -36,12 +36,12 @@ const getStock = () => {
 				// console.log(vo);
 				// obj.volume.push(vo)
 				obj.push({
-					'date': humanDateFormat,
-					'open': op,
-					'high': hi,
-					'low': lo,
-					'close': cl,
-					'volume': vo
+					date: humanDateFormat,
+					open: op,
+					high: hi,
+					low: lo,
+					close: cl,
+					volume: vo
 				})
 			}
 		})
@@ -56,8 +56,11 @@ const getStock = () => {
 }
 
 app.get("/api", (req, res) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	getStock()
-	res.json(null)
+	console.log(obj)
+	res.json(obj)
 })
 
 app.listen(5000, () => { console.log("Server started on port 5000") })
