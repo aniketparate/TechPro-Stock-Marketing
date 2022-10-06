@@ -6,11 +6,10 @@ const filePath = './text.json'
 const app = express()
 
 const obj = []
-let chechState = false
 
-const getStock = () => {
+const getStock = async () => {
 
-	fetch(`https://query1.finance.yahoo.com/v8/finance/chart/tatasteel.ns?interval=1d&range=1mo`)
+	await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/tatasteel.ns?interval=1d&range=1y`)
 		.then((response) => response.json())
 		.then((json) => {
 			for (let i = 0; i < json.chart.result[0].timestamp.length; i++) {
@@ -46,20 +45,18 @@ const getStock = () => {
 			}
 		})
 		.then(() => {
-			console.log(obj)
+			// console.log(obj)
 			const objString = JSON.stringify(obj);
 			writeFile(filePath, objString, (err) => {
 				if (err) throw err;
 			})
-			chechState = true
 		})
 }
 
-app.get("/api", (req, res) => {
+app.get("/api", async (req, res) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	getStock()
-	console.log(obj)
+	await getStock()
 	res.json(obj)
 })
 
