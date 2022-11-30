@@ -1,63 +1,50 @@
-import fetch from 'node-fetch'
-import express, { json } from 'express'
-import { fstat, readFile, readFileSync, writeFile } from 'fs'
-const filePath = './text.json'
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const path = require("path");
 
-const app = express()
+// SETUP
+dotenv.config({ path: "./server/config/.env" });
 
-const obj = []
+const app = express();
+const port = process.env.PORT || 5000;
 
-const getStock = async () => {
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser("secretcode"));
 
-	await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/tatasteel.ns?interval=1d&range=1y`)
-		.then((response) => response.json())
-		.then((json) => {
-			for (let i = 0; i < json.chart.result[0].timestamp.length; i++) {
-				const unixTimestamp = json.chart.result[0].timestamp[i]
-				const milliseconds = unixTimestamp * 1000
-				const dateObject = new Date(milliseconds)
-				const humanDateFormat = dateObject.toLocaleDateString()
-				// console.log(humanDateFormat)
-				// obj.date.push(humanDateFormat)
-				const op = json.chart.result[0].indicators.quote[0].open[i]
-				// console.log(op);
-				// obj.open.push(op)
-				const hi = json.chart.result[0].indicators.quote[0].high[i]
-				// console.log(hi);
-				// obj.high.push(hi)
-				const lo = json.chart.result[0].indicators.quote[0].low[i]
-				// console.log(lo);
-				// obj.low.push(lo)
-				const cl = json.chart.result[0].indicators.quote[0].close[i]
-				// console.log(cl);
-				// obj.close.push(cl)
-				const vo = json.chart.result[0].indicators.quote[0].volume[i]
-				// console.log(vo);
-				// obj.volume.push(vo)
-				obj.push({
-					date: humanDateFormat,
-					open: op,
-					high: hi,
-					low: lo,
-					close: cl,
-					volume: vo
-				})
-			}
-		})
-		.then(() => {
-			// console.log(obj)
-			const objString = JSON.stringify(obj);
-			writeFile(filePath, objString, (err) => {
-				if (err) throw err;
-			})
-		})
+// DATABASE
+const DB = process.env.MONGO_URI
+
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .catch((err) => console.log(err));
+
+// ROUTES
+const authRouter = require("./routes/authRoutes");
+const dataRouter = require("./routes/dataRoutes");
+const stockRouter = require("./routes/stockRoutes");
+
+app.use("/api/auth", authRouter);
+app.use("/api/data", dataRouter);
+app.use("/api/stock", stockRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/../client/build/index.html"));
+  });
 }
 
-app.get("/api", async (req, res) => {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	await getStock()
-	res.json(obj)
-})
-
-app.listen(5000, () => { console.log("Server started on port 5000") })
+// APP
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
