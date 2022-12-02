@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const stockSchema = new Schema({
   userId: {
@@ -22,8 +22,8 @@ const stockSchema = new Schema({
     type: Number,
     required: true,
   },
-});
+})
 
-const Stock = mongoose.model("Stock", stockSchema);
+const Stock = mongoose.model('Stock', stockSchema)
 
-module.exports = Stock;
+module.exports = Stock

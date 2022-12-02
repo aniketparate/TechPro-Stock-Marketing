@@ -1,21 +1,21 @@
-import React from "react";
-import { Bar } from "react-chartjs-2";
+import React from 'react'
+import { Bar } from 'react-chartjs-2'
 
 const BarChart = ({ sixMonthAverages, stockInfo }) => {
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
 
   const lineChart = sixMonthAverages ? (
     <Bar
@@ -23,8 +23,8 @@ const BarChart = ({ sixMonthAverages, stockInfo }) => {
         labels: sixMonthAverages.map(({ month }) => monthNames[month]),
         datasets: [
           {
-            label: "Price",
-            backgroundColor: "rgba(0, 0, 255, 0.3)",
+            label: 'Price',
+            backgroundColor: 'rgba(0, 0, 255, 0.3)',
             data: sixMonthAverages.map(({ value }) => value),
           },
         ],
@@ -34,7 +34,7 @@ const BarChart = ({ sixMonthAverages, stockInfo }) => {
         title: {
           display: true,
           text: `Average closing price per month of ${stockInfo.ticker} over the past 6 months`,
-          position: "bottom",
+          position: 'bottom',
         },
         layout: {
           padding: {
@@ -59,9 +59,9 @@ const BarChart = ({ sixMonthAverages, stockInfo }) => {
         },
       }}
     />
-  ) : null;
+  ) : null
 
-  return lineChart;
-};
+  return lineChart
+}
 
-export default BarChart;
+export default BarChart

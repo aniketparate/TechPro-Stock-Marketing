@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import { Link } from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Title from "../Template/Title.jsx";
-import SaleModal from "./SaleModal";
-import styles from "./Dashboard.module.css";
+import React, { useState } from 'react'
+import { Link } from '@material-ui/core'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Title from '../Template/Title.jsx'
+import SaleModal from './SaleModal'
+import styles from './Dashboard.module.css'
 
 const Purchases = ({ purchasedStocks }) => {
-  const [start, setStart] = useState(false);
-  const [stock, setStock] = useState(undefined);
+  const [start, setStart] = useState(false)
+  const [stock, setStock] = useState(undefined)
 
   const roundNumber = (num) => {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-  };
+    return Math.round((num + Number.EPSILON) * 100) / 100
+  }
 
   const openSaleModal = (stock) => {
-    setStock(stock);
-    setStart(true);
-  };
+    setStock(stock)
+    setStart(true)
+  }
 
   return (
     <React.Fragment>
-      <div style={{ minHeight: "200px" }}>
+      <div style={{ minHeight: '200px' }}>
         <Title>Stocks in Your Portfolio</Title>
         <Table size="small">
           <TableHead>
@@ -42,23 +42,23 @@ const Purchases = ({ purchasedStocks }) => {
           <TableBody>
             {purchasedStocks.map((row) => {
               const difference =
-                (row.currentPrice - row.purchasePrice) / row.currentPrice;
+                (row.currentPrice - row.purchasePrice) / row.currentPrice
               const purchaseTotal =
-                Number(row.quantity) * Number(row.purchasePrice);
+                Number(row.quantity) * Number(row.purchasePrice)
               const currentTotal =
-                Number(row.quantity) * Number(row.currentPrice);
+                Number(row.quantity) * Number(row.currentPrice)
               return (
                 <TableRow key={row.id}>
                   <TableCell>
                     <Link onClick={() => openSaleModal(row)}>{row.ticker}</Link>
                   </TableCell>
-                  <TableCell>{row.name || "----"}</TableCell>
-                  <TableCell>{row.quantity || "----"}</TableCell>
+                  <TableCell>{row.name || '----'}</TableCell>
+                  <TableCell>{row.quantity || '----'}</TableCell>
                   <TableCell align="right">
-                    ${row.purchasePrice.toLocaleString() || "----"}
+                    ${row.purchasePrice.toLocaleString() || '----'}
                   </TableCell>
                   <TableCell align="right">
-                    ${roundNumber(purchaseTotal).toLocaleString() || "----"}
+                    ${roundNumber(purchaseTotal).toLocaleString() || '----'}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -68,7 +68,7 @@ const Purchases = ({ purchasedStocks }) => {
                         : styles.negative
                     }
                   >
-                    ${row.currentPrice.toLocaleString() || "----"}
+                    ${row.currentPrice.toLocaleString() || '----'}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -78,7 +78,7 @@ const Purchases = ({ purchasedStocks }) => {
                         : styles.negative
                     }
                   >
-                    ${roundNumber(currentTotal).toLocaleString() || "----"}
+                    ${roundNumber(currentTotal).toLocaleString() || '----'}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -86,20 +86,18 @@ const Purchases = ({ purchasedStocks }) => {
                       difference >= 0 ? styles.positive : styles.negative
                     }
                   >
-                    {difference >= 0 ? "▲" : "▼"}{" "}
+                    {difference >= 0 ? '▲' : '▼'}{' '}
                     {Math.abs(difference * 100).toFixed(2)}%
                   </TableCell>
                 </TableRow>
-              );
+              )
             })}
           </TableBody>
         </Table>
-        {start && stock && (
-          <SaleModal setStart={setStart} stock={stock} />
-        )}
+        {start && stock && <SaleModal setStart={setStart} stock={stock} />}
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default Purchases;
+export default Purchases

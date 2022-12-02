@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import UserContext from "../../context/UserContext";
-import styles from "../Template/PageTemplate.module.css";
+import React, { useState, useContext } from 'react'
+import UserContext from '../../context/UserContext'
+import styles from '../Template/PageTemplate.module.css'
 import {
   Typography,
   IconButton,
@@ -12,10 +12,10 @@ import {
   Card,
   CardHeader,
   CardContent,
-} from "@material-ui/core";
-import { motion } from "framer-motion";
-import CloseIcon from "@material-ui/icons/Close";
-import Axios from "axios";
+} from '@material-ui/core'
+import { motion } from 'framer-motion'
+import CloseIcon from '@material-ui/icons/Close'
+import Axios from 'axios'
 
 const SaleModal = ({ setSaleOpen, stock }) => {
   return (
@@ -31,46 +31,46 @@ const SaleModal = ({ setSaleOpen, stock }) => {
         </motion.div>
       </Container>
     </motion.div>
-  );
-};
+  )
+}
 
 const SaleModalContent = ({ setSaleOpen, stock }) => {
-  const { info } = useContext(UserContext);
-  const [quantity, setQuantity] = useState(1);
+  const { info } = useContext(UserContext)
+  const [quantity, setQuantity] = useState(1)
 
   const handleQuantityChange = (e) => {
     if (!isNaN(e.target.value) && Number(e.target.value) <= stock.quantity) {
-      setQuantity(e.target.value);
+      setQuantity(e.target.value)
     }
-  };
+  }
 
   const handleClick = () => {
-    setSaleOpen(false);
-  };
+    setSaleOpen(false)
+  }
 
   const sellStock = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const headers = {
-      "x-auth-token": info.token,
-    };
+      'x-auth-token': info.token,
+    }
 
     const data = {
       stockId: stock.id,
       quantity: Number(quantity),
       userId: info.user.id,
       price: Number(stock.currentPrice),
-    };
+    }
 
-    const url = `/api/stock`;
+    const url = `/api/stock`
     const response = await Axios.patch(url, data, {
       headers,
-    });
+    })
 
-    if (response.data.status === "success") {
-      window.location.reload();
+    if (response.data.status === 'success') {
+      window.location.reload()
     }
-  };
+  }
 
   return (
     <Grid
@@ -79,7 +79,7 @@ const SaleModalContent = ({ setSaleOpen, stock }) => {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: '100vh' }}
     >
       <Box width="60vh" boxShadow={1}>
         <Card>
@@ -149,7 +149,7 @@ const SaleModalContent = ({ setSaleOpen, stock }) => {
         </Card>
       </Box>
     </Grid>
-  );
-};
+  )
+}
 
-export default SaleModal;
+export default SaleModal

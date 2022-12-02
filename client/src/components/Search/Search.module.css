@@ -2,11 +2,9 @@
   margin: 0 2% !important;
   margin-bottom: 45px !important;
 }
-
 .cardBorder {
   border-bottom: 10px solid rgba(0, 0, 255, 0.5);
 }
-
 .information {
   padding: 16px !important;
   display: flex !important;

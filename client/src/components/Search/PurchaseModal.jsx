@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import UserContext from "../../context/UserContext";
+import React, { useState, useContext } from 'react'
+import UserContext from '../../context/UserContext'
 import {
   Container,
   Typography,
@@ -11,11 +11,11 @@ import {
   IconButton,
   Grid,
   Card,
-} from "@material-ui/core/";
-import CloseIcon from "@material-ui/icons/Close";
-import styles from "./Search.module.css";
-import { motion } from "framer-motion";
-import Axios from "axios";
+} from '@material-ui/core/'
+import CloseIcon from '@material-ui/icons/Close'
+import styles from './Search.module.css'
+import { motion } from 'framer-motion'
+import Axios from 'axios'
 
 const PurchaseModal = ({
   setSelected,
@@ -43,8 +43,8 @@ const PurchaseModal = ({
         </motion.div>
       </Container>
     </motion.div>
-  );
-};
+  )
+}
 
 const PurchaseModalContent = ({
   setSelected,
@@ -53,10 +53,9 @@ const PurchaseModalContent = ({
   setPurchasedStocks,
   purchasedStocks,
 }) => {
-  const { userData, setUserData } = useContext(UserContext);
-  const [quantity, setQuantity] = useState(1);
-  const [total, setTotal] = useState(Number(pastDay.adjClose));
-  
+  const { userData, setUserData } = useContext(UserContext)
+  const [quantity, setQuantity] = useState(1)
+  const [total, setTotal] = useState(Number(pastDay.adjClose))
 
   const handleQuantityChange = (e) => {
     if (!isNaN(e.target.value)) {
@@ -65,48 +64,48 @@ const PurchaseModalContent = ({
           Number(pastDay.adjClose) * Number(e.target.value) <
         0
       ) {
-        return;
+        return
       }
 
-      setQuantity(e.target.value);
+      setQuantity(e.target.value)
       setTotal(
         Math.round(
           (Number(pastDay.adjClose) * Number(e.target.value) + Number.EPSILON) *
             100
         ) / 100
-      );
+      )
     }
-  };
+  }
 
   const handleClick = (e) => {
-    setSelected(false);
-  };
+    setSelected(false)
+  }
 
   const handlePurchase = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const headers = {
-      "x-auth-token": userData.token,
-    };
+      'x-auth-token': userData.token,
+    }
 
     const purchase = {
       userId: userData.user.id,
       ticker: stockInfo.ticker,
       quantity: Number(quantity),
       price: pastDay.adjClose,
-    };
+    }
 
-    const url = "/api/stock";
+    const url = '/api/stock'
     const response = await Axios.post(url, purchase, {
       headers,
-    });
+    })
 
-    if (response.data.status === "success") {
+    if (response.data.status === 'success') {
       setUserData({
         token: userData.token,
         user: response.data.user,
-      });
-      setSelected(false);
+      })
+      setSelected(false)
 
       const newStock = {
         id: response.data.stockId,
@@ -117,13 +116,13 @@ const PurchaseModalContent = ({
         quantity: Number(quantity),
         currentDate: new Date(),
         currentPrice: pastDay.adjClose,
-      };
-      const newPurchasedStocks = [...purchasedStocks, newStock];
-      setPurchasedStocks(newPurchasedStocks);
+      }
+      const newPurchasedStocks = [...purchasedStocks, newStock]
+      setPurchasedStocks(newPurchasedStocks)
     } else {
-      console.log("Couldn't purchase stock.");
+      console.log("Couldn't purchase stock.")
     }
-  };
+  }
 
   return (
     <Grid
@@ -132,7 +131,7 @@ const PurchaseModalContent = ({
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: '100vh' }}
     >
       <Box width="60vh" boxShadow={1}>
         <Card className={styles.paper}>
@@ -190,10 +189,10 @@ const PurchaseModalContent = ({
                 Total = ${total.toLocaleString()}
               </Typography>
               <Typography variant="body2" align="center">
-                Cash Balance after purchase:{" "}
+                Cash Balance after purchase:{' '}
                 {userData
-                  ? "$" + (userData.user.balance - total).toLocaleString()
-                  : "Balance Unavailable"}
+                  ? '$' + (userData.user.balance - total).toLocaleString()
+                  : 'Balance Unavailable'}
               </Typography>
               <Box display="flex" justifyContent="center">
                 <Button
@@ -213,7 +212,7 @@ const PurchaseModalContent = ({
         </Card>
       </Box>
     </Grid>
-  );
-};
+  )
+}
 
-export default PurchaseModal;
+export default PurchaseModal

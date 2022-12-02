@@ -1,17 +1,17 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React from 'react'
+import { Line } from 'react-chartjs-2'
 
 const LineChart = ({ pastDataPeriod, stockInfo, duration }) => {
   const formatDate = (date) => {
     var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate()
 
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
 
-    return [month, day].join("-");
-  };
+    return [month, day].join('-')
+  }
 
   const lineChart =
     pastDataPeriod.length > 0 ? (
@@ -21,10 +21,10 @@ const LineChart = ({ pastDataPeriod, stockInfo, duration }) => {
           datasets: [
             {
               data: pastDataPeriod.map(({ adjClose }) => adjClose),
-              label: "Price",
-              borderColor: "rgba(0, 0, 255, 0.5)",
+              label: 'Price',
+              borderColor: 'rgba(0, 0, 255, 0.5)',
               fill: true,
-              backgroundColor: "rgba(116, 185, 255, 0.2)",
+              backgroundColor: 'rgba(116, 185, 255, 0.2)',
             },
           ],
         }}
@@ -47,16 +47,16 @@ const LineChart = ({ pastDataPeriod, stockInfo, duration }) => {
           title: {
             display: true,
             text: `Stock price of ${stockInfo.ticker} over the past ${duration}`,
-            position: "bottom",
+            position: 'bottom',
           },
           animation: {
             duration: 2000,
           },
         }}
       />
-    ) : null;
+    ) : null
 
-  return lineChart;
-};
+  return lineChart
+}
 
-export default LineChart;
+export default LineChart

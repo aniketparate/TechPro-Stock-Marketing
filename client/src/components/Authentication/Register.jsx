@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   Box,
   Typography,
@@ -9,63 +9,63 @@ import {
   CardContent,
   Grid,
   Link,
-} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import Axios from "axios";
+} from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
+import Axios from 'axios'
 
-import styles from "./Auth.module.css";
+import styles from './Auth.module.css'
 
 const Register = () => {
-  const history = useHistory();
+  const history = useHistory()
 
-  const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [username, setUsername] = useState('')
+  const [usernameError, setUsernameError] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
   const onChangeUsername = (e) => {
-    const newUsername = e.target.value;
-    setUsername(newUsername);
+    const newUsername = e.target.value
+    setUsername(newUsername)
 
     if (newUsername.length < 4 || newUsername.length > 15) {
-      setUsernameError("Username must be between 4 and 15 characters.");
+      setUsernameError('Username must be between 4 and 15 characters.')
     } else {
-      setUsernameError("");
+      setUsernameError('')
     }
-  };
+  }
 
   const onChangePassword = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
+    const newPassword = e.target.value
+    setPassword(newPassword)
 
     if (newPassword.length < 6 || newPassword.length > 20) {
-      setPasswordError("Password must be between 6 and 20 characters.");
+      setPasswordError('Password must be between 6 and 20 characters.')
     } else {
-      setPasswordError("");
+      setPasswordError('')
     }
-  };
+  }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!usernameError && !passwordError) {
-      const newUser = { username, password };
-      const url = "/api/auth/register";
-      const registerRes = await Axios.post(url, newUser);
+      const newUser = { username, password }
+      const url = '/api/auth/register'
+      const registerRes = await Axios.post(url, newUser)
 
-      if (registerRes.data.status === "fail") {
+      if (registerRes.data.status === 'fail') {
         if (!registerRes.data.type) {
-          setPasswordError(registerRes.data.message);
-          setUsernameError(registerRes.data.message);
-        } else if (registerRes.data.type === "username") {
-          setUsernameError(registerRes.data.message);
-        } else if (registerRes.data.type === "password") {
-          setPasswordError(registerRes.data.message);
+          setPasswordError(registerRes.data.message)
+          setUsernameError(registerRes.data.message)
+        } else if (registerRes.data.type === 'username') {
+          setUsernameError(registerRes.data.message)
+        } else if (registerRes.data.type === 'password') {
+          setPasswordError(registerRes.data.message)
         }
       } else {
-        history.push("/login");
+        history.push('/login')
       }
     }
-  };
+  }
 
   return (
     <div className={styles.background}>
@@ -76,7 +76,7 @@ const Register = () => {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: '100vh' }}
       >
         <Box width="70vh" boxShadow={1}>
           <Card className={styles.paper}>
@@ -137,7 +137,7 @@ const Register = () => {
         </Box>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

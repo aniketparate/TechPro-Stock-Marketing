@@ -1,7 +1,6 @@
 .toolbar {
   padding-right: 24;
 }
-
 .toolbarIcon {
   display: flex;
   align-items: center;
@@ -9,7 +8,6 @@
   padding: 0 8px;
   min-height: 64px;
 }
-
 .root {
   display: flex;
 }

@@ -1,29 +1,29 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
 const errorMessage = (res) => {
   return res.status(401).json({
-    status: "fail",
-    message: "Authorization denied, user is not logged in.",
-  });
-};
+    status: 'fail',
+    message: 'Authorization denied, user is not logged in.',
+  })
+}
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header("x-auth-token");
+    const token = req.header('x-auth-token')
     if (!token) {
-      return errorMessage(res);
+      return errorMessage(res)
     }
 
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = jwt.verify(token, process.env.JWT_SECRET)
     if (!verified) {
-      return errorMessage(res);
+      return errorMessage(res)
     }
 
-    req.user = verified.id;
-    next();
+    req.user = verified.id
+    next()
   } catch {
-    return errorMessage(res);
+    return errorMessage(res)
   }
-};
+}
 
-module.exports = auth;
+module.exports = auth

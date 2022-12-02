@@ -1,6 +1,6 @@
-import React from "react";
-import { Grid, Typography, Card } from "@material-ui/core/";
-import styles from "./Search.module.css";
+import React from 'react'
+import { Grid, Typography, Card } from '@material-ui/core/'
+import styles from './Search.module.css'
 
 const PriceCard = ({ pastDay }) => {
   return (
@@ -38,7 +38,7 @@ const PriceCard = ({ pastDay }) => {
         </Typography>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default PriceCard;
+export default PriceCard

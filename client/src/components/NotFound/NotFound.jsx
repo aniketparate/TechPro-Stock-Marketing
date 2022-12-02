@@ -1,11 +1,11 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 const NotFound = () => {
-  const history = useHistory();
-  history.push("/");
+  const history = useHistory()
+  history.push('/')
 
-  return <h1>Not Found!</h1>;
-};
+  return <h1>Not Found!</h1>
+}
 
-export default NotFound;
+export default NotFound

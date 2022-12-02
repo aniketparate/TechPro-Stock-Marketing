@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import UserContext from "../../context/UserContext";
-import styles from "./PageTemplate.module.css";
+import React, { useState, useContext } from 'react'
+import UserContext from '../../context/UserContext'
+import styles from './PageTemplate.module.css'
 import {
   Typography,
   IconButton,
@@ -12,10 +12,10 @@ import {
   Card,
   CardHeader,
   CardContent,
-} from "@material-ui/core";
-import { motion } from "framer-motion";
-import CloseIcon from "@material-ui/icons/Close";
-import Axios from "axios";
+} from '@material-ui/core'
+import { motion } from 'framer-motion'
+import CloseIcon from '@material-ui/icons/Close'
+import Axios from 'axios'
 
 const SettingsModal = ({ setSettingsOpen }) => {
   return (
@@ -31,45 +31,45 @@ const SettingsModal = ({ setSettingsOpen }) => {
         </motion.div>
       </Container>
     </motion.div>
-  );
-};
+  )
+}
 
 const SettingsModalContent = ({ setSettingsOpen }) => {
-  const { userData, setUserData } = useContext(UserContext);
-  const [activateSafetyButton, setActiveSafetyButton] = useState(false);
+  const { userData, setUserData } = useContext(UserContext)
+  const [activateSafetyButton, setActiveSafetyButton] = useState(false)
 
   const handleClick = () => {
-    setSettingsOpen(false);
-  };
+    setSettingsOpen(false)
+  }
 
   const handleResetOn = () => {
-    setActiveSafetyButton(true);
-  };
+    setActiveSafetyButton(true)
+  }
 
   const handleResetOff = () => {
-    setActiveSafetyButton(false);
-  };
+    setActiveSafetyButton(false)
+  }
 
   const resetAccount = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const headers = {
-      "x-auth-token": userData.token,
-    };
+      'x-auth-token': userData.token,
+    }
 
-    const url = `/api/stock/${userData.user.id}`;
+    const url = `/api/stock/${userData.user.id}`
     const response = await Axios.delete(url, {
       headers,
-    });
+    })
 
-    if (response.data.status === "success") {
+    if (response.data.status === 'success') {
       setUserData({
         token: userData.token,
         user: response.data.user,
-      });
-      window.location.reload();
+      })
+      window.location.reload()
     }
-  };
+  }
 
   return (
     <Grid
@@ -78,7 +78,7 @@ const SettingsModalContent = ({ setSettingsOpen }) => {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: '100vh' }}
     >
       <Box width="60vh" boxShadow={1}>
         <Card>
@@ -163,7 +163,7 @@ const SettingsModalContent = ({ setSettingsOpen }) => {
         </Card>
       </Box>
     </Grid>
-  );
-};
+  )
+}
 
-export default SettingsModal;
+export default SettingsModal

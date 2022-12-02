@@ -1,24 +1,24 @@
-import React, { useContext, useState, useEffect } from "react";
-import UserContext from "../../context/UserContext";
-import { Typography } from "@material-ui/core/";
-import Title from "../Template/Title.jsx";
-import styles from "./Dashboard.module.css";
+import React, { useContext, useState, useEffect } from 'react'
+import UserContext from '../../context/UserContext'
+import { Typography } from '@material-ui/core/'
+import Title from '../Template/Title.jsx'
+import styles from './Dashboard.module.css'
 
 const Balance = ({ purchasedStocks }) => {
-  const { userData } = useContext(UserContext);
-  const [portfolioBalance, setPortfolioBalance] = useState(0);
+  const { userData } = useContext(UserContext)
+  const [portfolioBalance, setPortfolioBalance] = useState(0)
 
   useEffect(() => {
     const portfolioBalance = () => {
-      let total = 0;
+      let total = 0
       purchasedStocks.forEach((stock) => {
-        total += Number(stock.currentPrice) * Number(stock.quantity);
-      });
-  
-      return Math.round((total + Number.EPSILON) * 100) / 100;
-    };
-    setPortfolioBalance(portfolioBalance());
-  }, [purchasedStocks]);
+        total += Number(stock.currentPrice) * Number(stock.quantity)
+      })
+
+      return Math.round((total + Number.EPSILON) * 100) / 100
+    }
+    setPortfolioBalance(portfolioBalance())
+  }, [purchasedStocks])
 
   return (
     <React.Fragment>
@@ -30,7 +30,7 @@ const Balance = ({ purchasedStocks }) => {
         </Typography>
 
         <Typography component="p" variant="h6" align="center">
-          ${userData ? userData.user.balance.toLocaleString() : "$---"}
+          ${userData ? userData.user.balance.toLocaleString() : '$---'}
         </Typography>
         <Typography color="textSecondary" align="center">
           Portfolio Balance:
@@ -57,7 +57,7 @@ const Balance = ({ purchasedStocks }) => {
             $
             {userData
               ? (userData.user.balance + portfolioBalance).toLocaleString()
-              : "---"}
+              : '---'}
           </Typography>
         </div>
       </div>
@@ -67,8 +67,8 @@ const Balance = ({ purchasedStocks }) => {
         </Typography>
       </div>
     </React.Fragment>
-  );
-};
+  )
+}
 /*
 const BarChartCard = ({ sixMonthAverages, stockInfo }) => {
   return (
@@ -78,4 +78,4 @@ const BarChartCard = ({ sixMonthAverages, stockInfo }) => {
   );
 }
 */
-export default Balance;
+export default Balance

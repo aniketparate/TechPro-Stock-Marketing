@@ -1,9 +1,9 @@
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import React from 'react'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import SettingsIcon from '@material-ui/icons/Settings'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const SecondNavbar = ({ logout, openSettings }) => {
   return (
@@ -21,7 +21,7 @@ const SecondNavbar = ({ logout, openSettings }) => {
         <ListItemText primary="Log Out" />
       </ListItem>
     </div>
-  );
-};
+  )
+}
 
-export default SecondNavbar;
+export default SecondNavbar

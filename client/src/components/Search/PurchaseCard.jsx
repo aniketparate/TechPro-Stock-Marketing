@@ -1,6 +1,6 @@
-import React from "react";
-import { Grid, Typography, Card, Box, Button } from "@material-ui/core/";
-import styles from "./Search.module.css";
+import React from 'react'
+import { Grid, Typography, Card, Box, Button } from '@material-ui/core/'
+import styles from './Search.module.css'
 
 const PurchaseCard = ({ setSelected, balance }) => {
   return (
@@ -15,7 +15,7 @@ const PurchaseCard = ({ setSelected, balance }) => {
         Your Cash Balance:
       </Typography>
       <Typography variant="h6" align="center">
-        {balance ? "$" + balance.toLocaleString() : "Balance Unavailable"}
+        {balance ? '$' + balance.toLocaleString() : 'Balance Unavailable'}
       </Typography>
       <br />
       <br />
@@ -34,7 +34,7 @@ const PurchaseCard = ({ setSelected, balance }) => {
         </Button>
       </Box>
     </Grid>
-  );
-};
+  )
+}
 
-export default PurchaseCard;
+export default PurchaseCard

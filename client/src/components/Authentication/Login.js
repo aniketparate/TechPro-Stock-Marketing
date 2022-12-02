@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react'
 import {
   Box,
   Typography,
@@ -9,47 +9,47 @@ import {
   CardContent,
   Grid,
   Link,
-} from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import UserContext from "../../context/UserContext";
-import Axios from "axios";
+} from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
+import UserContext from '../../context/UserContext'
+import Axios from 'axios'
 
-import styles from "./Auth.module.css";
+import styles from './Auth.module.css'
 
 const Login = () => {
-  const history = useHistory();
-  const { setUserData } = useContext(UserContext);
+  const history = useHistory()
+  const { setUserData } = useContext(UserContext)
 
-  const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [username, setUsername] = useState('')
+  const [usernameError, setUsernameError] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
   const onChangeUsername = (e) => {
-    const newUsername = e.target.value;
-    setUsername(newUsername);
-  };
+    const newUsername = e.target.value
+    setUsername(newUsername)
+  }
 
   const onChangePassword = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-  };
+    const newPassword = e.target.value
+    setPassword(newPassword)
+  }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    const newUser = { username, password };
-    const url = "/api/auth/login";
-    const loginRes = await Axios.post(url, newUser);
+    e.preventDefault()
+    const newUser = { username, password }
+    const url = '/api/auth/login'
+    const loginRes = await Axios.post(url, newUser)
 
-    if (loginRes.data.status === "fail") {
-      setUsernameError(loginRes.data.message);
-      setPasswordError(loginRes.data.message);
+    if (loginRes.data.status === 'fail') {
+      setUsernameError(loginRes.data.message)
+      setPasswordError(loginRes.data.message)
     } else {
-      setUserData(loginRes.data);
-      localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+      setUserData(loginRes.data)
+      localStorage.setItem('auth-token', loginRes.data.token)
+      history.push('/')
     }
-  };
+  }
 
   return (
     <div className={styles.background}>
@@ -60,7 +60,7 @@ const Login = () => {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: '100vh' }}
       >
         <Box width="70vh" boxShadow={1}>
           <Card className={styles.paper}>
@@ -121,7 +121,7 @@ const Login = () => {
         </Box>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

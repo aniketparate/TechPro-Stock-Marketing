@@ -1,29 +1,29 @@
-import React, { useState, useEffect, useContext } from "react";
-import UserContext from "../../context/UserContext";
-import { TextField, Container, Grid, Card } from "@material-ui/core/";
+import React, { useState, useEffect, useContext } from 'react'
+import UserContext from '../../context/UserContext'
+import { TextField, Container, Grid, Card } from '@material-ui/core/'
 import Autocomplete, {
   createFilterOptions,
-} from "@material-ui/lab/Autocomplete";
-import { makeStyles } from "@material-ui/core/styles";
-import LineChart from "../Template/LineChart";
-import styles from "./Search.module.css";
-import Axios from "axios";
-import InfoCard from "./InfoCard";
-import PriceCard from "./PriceCard";
-import PurchaseCard from "./PurchaseCard";
-import PurchaseModal from "./PurchaseModal";
+} from '@material-ui/lab/Autocomplete'
+import { makeStyles } from '@material-ui/core/styles'
+import LineChart from '../Template/LineChart'
+import styles from './Search.module.css'
+import Axios from 'axios'
+import InfoCard from './InfoCard'
+import PriceCard from './PriceCard'
+import PurchaseCard from './PurchaseCard'
+import PurchaseModal from './PurchaseModal'
 
-const filter = createFilterOptions();
+const filter = createFilterOptions()
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-    marginBottom: "40px",
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+    marginBottom: '40px',
   },
-}));
+}))
 
 const LineChartCard = ({ pastDataPeriod, stockInfo, duration }) => {
   return (
@@ -33,7 +33,7 @@ const LineChartCard = ({ pastDataPeriod, stockInfo, duration }) => {
       sm={7}
       component={Card}
       className={styles.card}
-      style={{ minHeight: "350px" }}
+      style={{ minHeight: '350px' }}
     >
       <LineChart
         pastDataPeriod={pastDataPeriod}
@@ -41,43 +41,42 @@ const LineChartCard = ({ pastDataPeriod, stockInfo, duration }) => {
         duration={duration}
       />
     </Grid>
-  );
-};
-
+  )
+}
 
 const StockCard = ({ setPurchasedStocks, purchasedStocks, currentStock }) => {
-  const { userData } = useContext(UserContext);
-  const [selected, setSelected] = useState(false);
-  const [stockInfo, setStockInfo] = useState(undefined);
-  const [sixMonthAverages, setSixMonthAverages] = useState(undefined);
-  const [pastDay, setPastDay] = useState(undefined);
-  const [pastMonth, setPastMonth] = useState(undefined);
-  const [pastTwoYears, setPastTwoYears] = useState(undefined);
+  const { userData } = useContext(UserContext)
+  const [selected, setSelected] = useState(false)
+  const [stockInfo, setStockInfo] = useState(undefined)
+  const [sixMonthAverages, setSixMonthAverages] = useState(undefined)
+  const [pastDay, setPastDay] = useState(undefined)
+  const [pastMonth, setPastMonth] = useState(undefined)
+  const [pastTwoYears, setPastTwoYears] = useState(undefined)
 
   useEffect(() => {
     const getInfo = async () => {
-      const url = `/api/data/prices/${currentStock.ticker}`;
-      const response = await Axios.get(url);
-      if (response.data.status === "success") {
-        setStockInfo(response.data.data);
+      const url = `/api/data/prices/${currentStock.ticker}`
+      const response = await Axios.get(url)
+      if (response.data.status === 'success') {
+        setStockInfo(response.data.data)
       }
-    };
+    }
 
-    getInfo();
+    getInfo()
 
     const getData = async () => {
-      const url = `/api/data/prices/${currentStock.ticker}/full`;
-      const response = await Axios.get(url);
-      if (response.data.status === "success") {
-        setSixMonthAverages(response.data.sixMonthAverages);
-        setPastDay(response.data.pastDay);
-        setPastMonth(response.data.pastMonth);
-        setPastTwoYears(response.data.pastTwoYears);
+      const url = `/api/data/prices/${currentStock.ticker}/full`
+      const response = await Axios.get(url)
+      if (response.data.status === 'success') {
+        setSixMonthAverages(response.data.sixMonthAverages)
+        setPastDay(response.data.pastDay)
+        setPastMonth(response.data.pastMonth)
+        setPastTwoYears(response.data.pastTwoYears)
       }
-    };
+    }
 
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   return (
     <div className={styles.root}>
@@ -90,7 +89,7 @@ const StockCard = ({ setPurchasedStocks, purchasedStocks, currentStock }) => {
             <LineChartCard
               pastDataPeriod={pastTwoYears}
               stockInfo={stockInfo}
-              duration={"2 years"}
+              duration={'2 years'}
             />
           </Grid>
           <PriceCard pastDay={pastDay} />
@@ -112,22 +111,22 @@ const StockCard = ({ setPurchasedStocks, purchasedStocks, currentStock }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const Search = ({ setPurchasedStocks, purchasedStocks }) => {
-  const classes = useStyles();
-  const [value, setValue] = useState(null);
-  const [currentStock, setCurrentStock] = useState(null);
+  const classes = useStyles()
+  const [value, setValue] = useState(null)
+  const [currentStock, setCurrentStock] = useState(null)
 
   const onSearchChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue)
     if (newValue) {
-      setCurrentStock(newValue);
+      setCurrentStock(newValue)
     } else {
-      setCurrentStock(null);
+      setCurrentStock(null)
     }
-  };
+  }
 
   return (
     <Container className={classes.addMargin}>
@@ -135,11 +134,11 @@ const Search = ({ setPurchasedStocks, purchasedStocks }) => {
         value={value}
         onChange={onSearchChange}
         filterOptions={(options, params) => {
-          let filtered = filter(options, params);
+          let filtered = filter(options, params)
           if (currentStock) {
-            filtered = filtered.slice(0, 4);
+            filtered = filtered.slice(0, 4)
           }
-          return filtered;
+          return filtered
         }}
         selectOnFocus
         clearOnBlur
@@ -147,13 +146,13 @@ const Search = ({ setPurchasedStocks, purchasedStocks }) => {
         id="stock-search-bar"
         options={stocks}
         getOptionLabel={(option) => {
-          return option.name;
+          return option.name
         }}
         renderOption={(option) => option.name}
         style={{
-          maxWidth: "700px",
-          margin: "30px auto",
-          marginBottom: "60px",
+          maxWidth: '700px',
+          margin: '30px auto',
+          marginBottom: '60px',
         }}
         renderInput={(params) => (
           <TextField
@@ -174,16 +173,16 @@ const Search = ({ setPurchasedStocks, purchasedStocks }) => {
       <br />
       <br />
     </Container>
-  );
-};
+  )
+}
 
 const stocks = [
-  { name: "Apple", ticker: "AAPL" },
-  { name: "Amazon", ticker: "AMZN" },
-  { name: "Google", ticker: "GOOG" },
-  { name: "Microsoft", ticker: "MSFT" },
-  { name: "Intel", ticker: "INTC" },
-  { name: "IBM", ticker: "IBM" },
-];
+  { name: 'Apple', ticker: 'AAPL' },
+  { name: 'Amazon', ticker: 'AMZN' },
+  { name: 'Google', ticker: 'GOOG' },
+  { name: 'Microsoft', ticker: 'MSFT' },
+  { name: 'Intel', ticker: 'INTC' },
+  { name: 'IBM', ticker: 'IBM' },
+]
 
-export default Search;
+export default Search

@@ -1,28 +1,28 @@
-import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import SearchIcon from "@material-ui/icons/Search";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import styles from "./PageTemplate.module.css";
+import React from 'react'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import SearchIcon from '@material-ui/icons/Search'
+import SettingsIcon from '@material-ui/icons/Settings'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import styles from './PageTemplate.module.css'
 const Navbar = ({ currentPage, setCurrentPage, logout, openSettings }) => {
   const onDashboardButtonClick = (e) => {
-    e.preventDefault();
-    setCurrentPage("dashboard");
-  };
+    e.preventDefault()
+    setCurrentPage('dashboard')
+  }
 
   const onSearchButtonClick = (e) => {
-    e.preventDefault();
-    setCurrentPage("search");
-  };
+    e.preventDefault()
+    setCurrentPage('search')
+  }
 
   return (
     <div className={styles.root}>
       <ListItem
         button
-        selected={currentPage === "dashboard"}
+        selected={currentPage === 'dashboard'}
         onClick={onDashboardButtonClick}
       >
         <ListItemIcon>
@@ -32,7 +32,7 @@ const Navbar = ({ currentPage, setCurrentPage, logout, openSettings }) => {
       </ListItem>
       <ListItem
         button
-        selected={currentPage === "search"}
+        selected={currentPage === 'search'}
         onClick={onSearchButtonClick}
       >
         <ListItemIcon>
@@ -54,7 +54,7 @@ const Navbar = ({ currentPage, setCurrentPage, logout, openSettings }) => {
         <ListItemText primary="Log Out" />
       </ListItem>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
