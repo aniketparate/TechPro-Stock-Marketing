@@ -35,7 +35,7 @@ const SaleModal = ({ setSaleOpen, stock }) => {
 }
 
 const SaleModalContent = ({ setSaleOpen, stock }) => {
-  const { info } = useContext(UserContext)
+  const { userData } = useContext(UserContext)
   const [quantity, setQuantity] = useState(1)
 
   const handleQuantityChange = (e) => {
@@ -45,20 +45,27 @@ const SaleModalContent = ({ setSaleOpen, stock }) => {
   }
 
   const handleClick = () => {
-    setSaleOpen(false)
+    if (setSaleOpen) {
+      setSaleOpen(false)
+    }
   }
 
   const sellStock = async (e) => {
     e.preventDefault()
 
+    if (!userData || !userData.token || !userData.user || !userData.user.id) {
+      console.error('User data is not available')
+      return
+    }
+
     const headers = {
-      'x-auth-token': info.token,
+      'x-auth-token': userData.token,
     }
 
     const data = {
       stockId: stock.id,
       quantity: Number(quantity),
-      userId: info.user.id,
+      userId: userData.user.id,
       price: Number(stock.currentPrice),
     }
 

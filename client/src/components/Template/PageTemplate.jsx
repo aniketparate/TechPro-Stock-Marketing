@@ -59,7 +59,7 @@ const PageTemplate = () => {
   const history = useHistory()
   const classes = useStyles()
   const { userData, setUserData } = useContext(UserContext)
-  const [open, setOpen] = useState(false)
+  const [open] = useState(false)
   const [currentPage, setCurrentPage] = useState('dashboard')
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [purchasedStocks, setPurchasedStocks] = useState([])
@@ -68,8 +68,15 @@ const PageTemplate = () => {
     history.push('/login')
   }
 
+  const userId = userData.user && userData.user.id
+  const userToken = userData.token
+
   useEffect(() => {
     const getPurchasedStocks = async () => {
+      if (!userData.user || !userData.user.id || !userData.token) {
+        return
+      }
+      
       const url = `/api/stock/${userData.user.id}`
       const headers = {
         'x-auth-token': userData.token,
@@ -83,7 +90,7 @@ const PageTemplate = () => {
       }
     }
     getPurchasedStocks()
-  }, [])
+  }, [userToken, userId, userData.user])
 
   const logout = () => {
     setUserData({

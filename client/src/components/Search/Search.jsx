@@ -76,7 +76,7 @@ const StockCard = ({ setPurchasedStocks, purchasedStocks, currentStock }) => {
     }
 
     getData()
-  }, [])
+  }, [currentStock.ticker])
 
   return (
     <div className={styles.root}>

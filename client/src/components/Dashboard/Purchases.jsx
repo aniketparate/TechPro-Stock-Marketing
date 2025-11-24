@@ -94,7 +94,7 @@ const Purchases = ({ purchasedStocks }) => {
             })}
           </TableBody>
         </Table>
-        {start && stock && <SaleModal setStart={setStart} stock={stock} />}
+        {start && stock && <SaleModal setSaleOpen={setStart} stock={stock} />}
       </div>
     </React.Fragment>
   )
