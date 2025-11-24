@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: techpro-stock-marketing
+    env: node
+    buildCommand: npm run heroku-postbuild
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: TIINGO_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000
+
