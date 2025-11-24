@@ -2,6 +2,7 @@ services:
   - type: web
     name: techpro-stock-marketing
     env: node
+    nodeVersion: 18
     buildCommand: npm run heroku-postbuild
     startCommand: npm start
     envVars:

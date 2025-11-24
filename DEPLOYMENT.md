@@ -37,6 +37,7 @@ This guide will help you deploy your application to free hosting platforms.
 3. **Configure the service:**
    - **Name:** `techpro-stock-marketing` (or any name)
    - **Environment:** `Node`
+   - **Node Version:** `18` (important - set this in Advanced settings)
    - **Build Command:** `npm run heroku-postbuild`
    - **Start Command:** `npm start`
    - **Plan:** Free
@@ -170,6 +171,12 @@ fly secrets set TIINGO_API_KEY="your-key"
 - Check build logs in Render/Railway dashboard
 - Ensure all dependencies are in `package.json`
 - Verify Node.js version compatibility
+
+### Node.js version error (buffer-equal-constant-time):
+- **Error:** `Cannot read properties of undefined (reading 'prototype')`
+- **Solution:** Set Node.js version to 18.x in Render dashboard
+- Go to your service → Settings → Advanced → Node Version → Set to `18`
+- Or use the `render.yaml` file which specifies Node.js 18
 
 ### Database connection fails:
 - Check MongoDB Atlas IP whitelist (should allow 0.0.0.0/0)
